@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akika BD - Aqiqah Planner</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <div>
+      <h1 id="appTitle">Akika BD</h1>
+      <p class="subtitle" data-i18n="appSubtitle"></p>
+    </div>
+    <button id="langBtn" class="btn btn-ghost" type="button">Bangla</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button class="tab active" data-tab="plan" role="tab" type="button" data-i18n="tabPlan"></button>
+    <button class="tab" data-tab="meat" role="tab" type="button" data-i18n="tabMeat"></button>
+    <button class="tab" data-tab="charity" role="tab" type="button" data-i18n="tabCharity"></button>
+    <button class="tab" data-tab="checklist" role="tab" type="button" data-i18n="tabChecklist"></button>
+    <button class="tab" data-tab="data" role="tab" type="button" data-i18n="tabData"></button>
+  </nav>
+
+  <!-- PLAN -->
+  <section id="panel-plan" class="panel active">
+    <h2 data-i18n="planTitle"></h2>
+    <p class="muted" data-i18n="planIntro"></p>
+    <div class="card">
+      <div class="grid2">
+        <div>
+          <label class="field-label" for="fName" data-i18n="childName"></label>
+          <input id="fName" type="text" maxlength="80" data-i18n-ph="childNamePh" autocomplete="off">
+        </div>
+        <div>
+          <label class="field-label" for="fGender" data-i18n="gender"></label>
+          <select id="fGender">
+            <option value="boy" data-i18n="genderBoy"></option>
+            <option value="girl" data-i18n="genderGirl"></option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label" for="fBirth" data-i18n="birthDate"></label>
+          <input id="fBirth" type="date">
+          <p class="hint" data-i18n="birthDateHint"></p>
+        </div>
+        <div>
+          <label class="field-label" for="fCount" data-i18n="animalCount"></label>
+          <input id="fCount" type="number" min="1" max="10" step="1" value="2" inputmode="numeric">
+          <p class="hint" data-i18n="animalCountHint"></p>
+        </div>
+        <div>
+          <label class="field-label" for="fType" data-i18n="animalType"></label>
+          <select id="fType">
+            <option value="goat" data-i18n="typeGoat">Goat</option>
+            <option value="sheep" data-i18n="typeSheep">Sheep</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label" for="fPrice" data-i18n="priceEach"></label>
+          <input id="fPrice" type="number" min="0" step="1" value="12000" inputmode="decimal">
+        </div>
+        <div>
+          <label class="field-label" for="fButcher" data-i18n="butcherFee"></label>
+          <input id="fButcher" type="number" min="0" step="1" value="1500" inputmode="decimal">
+        </div>
+        <div>
+          <label class="field-label" for="fCooking" data-i18n="cookingCost"></label>
+          <input id="fCooking" type="number" min="0" step="1" value="3000" inputmode="decimal">
+        </div>
+        <div>
+          <label class="field-label" for="fOther" data-i18n="otherCost"></label>
+          <input id="fOther" type="number" min="0" step="1" value="500" inputmode="decimal">
+        </div>
+      </div>
+      <div class="row">
+        <button id="planCalcBtn" class="btn btn-primary" type="button" data-i18n="calcBtn"></button>
+        <button id="planSaveBtn" class="btn" type="button" data-i18n="savePlanBtn"></button>
+      </div>
+      <p class="error" id="planErr" hidden></p>
+      <p class="okmsg" id="planSavedMsg" hidden></p>
+    </div>
+
+    <div class="card" id="planResults" hidden>
+      <h3><span data-i18n="d7Label"></span>: <span id="d7Date"></span></h3>
+      <p class="muted" id="d7Status"></p>
+      <dl class="results">
+        <div><dt data-i18n="d14Label"></dt><dd id="d14Date"></dd></div>
+        <div><dt data-i18n="d21Label"></dt><dd id="d21Date"></dd></div>
+        <div><dt data-i18n="animalsCost"></dt><dd id="resAnimals"></dd></div>
+        <div><dt data-i18n="feesCost"></dt><dd id="resFees"></dd></div>
+        <div><dt data-i18n="perAnimal"></dt><dd id="resPerAnimal"></dd></div>
+        <div class="total"><dt data-i18n="totalCost"></dt><dd id="resTotal"></dd></div>
+      </dl>
+    </div>
+
+    <div class="card">
+      <h3 data-i18n="tipsTitle"></h3>
+      <ul id="tipsList" class="tips"></ul>
+    </div>
+  </section>
+
+  <!-- MEAT + FEAST -->
+  <section id="panel-meat" class="panel">
+    <h2 data-i18n="meatTitle"></h2>
+    <p class="muted" data-i18n="meatIntro"></p>
+    <div class="card">
+      <div class="grid2">
+        <div>
+          <label class="field-label" for="mKg" data-i18n="totalMeatKg"></label>
+          <input id="mKg" type="number" min="0" step="0.01" value="14" inputmode="decimal">
+        </div>
+        <div>
+          <label class="field-label" for="mFamily" data-i18n="shareFamily"></label>
+          <input id="mFamily" type="number" min="0" max="100" step="1" value="33" inputmode="numeric">
+        </div>
+        <div>
+          <label class="field-label" for="mRelatives" data-i18n="shareRelatives"></label>
+          <input id="mRelatives" type="number" min="0" max="100" step="1" value="33" inputmode="numeric">
+        </div>
+        <div>
+          <label class="field-label" for="mPoor" data-i18n="sharePoor"></label>
+          <input id="mPoor" type="number" min="0" max="100" step="1" value="34" inputmode="numeric">
+        </div>
+      </div>
+      <div class="row">
+        <button id="meatCalcBtn" class="btn btn-primary" type="button" data-i18n="calcBtn"></button>
+        <button id="balanceBtn" class="btn" type="button" data-i18n="balanceBtn"></button>
+      </div>
+      <p class="error" id="meatErr" hidden></p>
+      <dl class="results" id="meatResults" hidden>
+        <div><dt data-i18n="shareFamily"></dt><dd id="shareFamilyKg"></dd></div>
+        <div><dt data-i18n="shareRelatives"></dt><dd id="shareRelativesKg"></dd></div>
+        <div><dt data-i18n="sharePoor"></dt><dd id="sharePoorKg"></dd></div>
+      </dl>
+    </div>
+
+    <h2 data-i18n="guestTitle"></h2>
+    <p class="muted" data-i18n="guestIntro"></p>
+    <div class="card">
+      <div class="grid2">
+        <div>
+          <label class="field-label" for="gGuests" data-i18n="guestCount"></label>
+          <input id="gGuests" type="number" min="0" max="2000" step="1" value="40" inputmode="numeric">
+        </div>
+        <div>
+          <label class="field-label" for="gPerHead" data-i18n="perHead"></label>
+          <input id="gPerHead" type="number" min="0" step="1" value="350" inputmode="decimal">
+        </div>
+        <div>
+          <label class="field-label" for="gVenue" data-i18n="venueCost"></label>
+          <input id="gVenue" type="number" min="0" step="1" value="5000" inputmode="decimal">
+        </div>
+        <div>
+          <label class="field-label" for="gDecor" data-i18n="decorCost"></label>
+          <input id="gDecor" type="number" min="0" step="1" value="2000" inputmode="decimal">
+        </div>
+      </div>
+      <div class="row">
+        <button id="guestCalcBtn" class="btn btn-primary" type="button" data-i18n="calcBtn"></button>
+      </div>
+      <p class="error" id="guestErr" hidden></p>
+      <dl class="results" id="guestResults" hidden>
+        <div><dt data-i18n="foodCost"></dt><dd id="resFood"></dd></div>
+        <div><dt data-i18n="venueCost"></dt><dd id="resVenue"></dd></div>
+        <div><dt data-i18n="decorCost"></dt><dd id="resDecor"></dd></div>
+        <div><dt data-i18n="eventTotal"></dt><dd id="resEventTotal"></dd></div>
+        <div class="total"><dt data-i18n="grandTotal"></dt><dd id="resGrandTotal"></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- CHARITY -->
+  <section id="panel-charity" class="panel">
+    <h2 data-i18n="charityTitle"></h2>
+    <p class="muted" data-i18n="charityIntro"></p>
+    <div class="card">
+      <div class="grid2">
+        <div>
+          <label class="field-label" for="cGrams" data-i18n="hairGrams"></label>
+          <input id="cGrams" type="number" min="0" step="0.1" value="2.5" inputmode="decimal">
+        </div>
+        <div>
+          <label class="field-label" for="cRate" data-i18n="silverRate"></label>
+          <input id="cRate" type="number" min="0" step="1" value="180" inputmode="decimal">
+        </div>
+      </div>
+      <div class="row">
+        <button id="charityCalcBtn" class="btn btn-primary" type="button" data-i18n="charityBtn"></button>
+      </div>
+      <p class="error" id="charityErr" hidden></p>
+      <p class="hint" data-i18n="charityNote"></p>
+      <dl class="results" id="charityResults" hidden>
+        <div class="total"><dt data-i18n="charityAmt"></dt><dd id="resCharity"></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- CHECKLIST -->
+  <section id="panel-checklist" class="panel">
+    <h2 data-i18n="checkTitle"></h2>
+    <p class="muted" data-i18n="checkIntro"></p>
+    <p class="muted"><span data-i18n="dueOn"></span> <b id="checkDue"></b></p>
+    <div class="card">
+      <ul id="checkList" class="checklist"></ul>
+      <p><b id="checkCount"></b></p>
+      <div class="row">
+        <button id="checkResetBtn" class="btn" type="button" data-i18n="checkReset"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA -->
+  <section id="panel-data" class="panel">
+    <h2 data-i18n="dataTitle"></h2>
+    <p class="muted" data-i18n="dataIntro"></p>
+    <h3 data-i18n="savedPlans"></h3>
+    <p class="muted" id="plansEmpty" data-i18n="dataEmpty"></p>
+    <div id="plansList"></div>
+    <div class="card">
+      <div class="row wrap-row">
+        <button id="sampleBtn" class="btn" type="button" data-i18n="sampleBtn"></button>
+        <button id="exportBtn" class="btn" type="button" data-i18n="exportBtn"></button>
+        <button id="importBtn" class="btn" type="button" data-i18n="importBtn"></button>
+        <button id="eraseBtn" class="btn btn-danger" type="button" data-i18n="eraseBtn"></button>
+      </div>
+      <input id="importFile" type="file" accept="application/json,.json" hidden>
+      <p class="error" id="importErr" hidden></p>
+      <p class="okmsg" id="importOk" hidden></p>
+      <p class="hint" id="sampleNote" data-i18n="sampleNote" hidden></p>
+    </div>
+  </section>
+
+  <footer>
+    <p class="muted" data-i18n="footerNote"></p>
+  </footer>
+</main>
+
+<script src="js/i18n.js"></script>
+<script src="js/data.js"></script>
+<script src="js/logic.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
